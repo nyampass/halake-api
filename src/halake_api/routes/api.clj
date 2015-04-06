@@ -41,8 +41,9 @@
         (update-status temperature humidity congestion)))
 
 (defn wrap-authorize [app]
-  (fn [{{:keys [halake-api-key]} :headers :as req}]
-    (if (= halake-api-key @#'halake-api-key)
+  (fn [{{:strs [x-halake-api-key]} :headers :as req}]
+    (if (and (not (nil? x-halake-api-key))
+             (= x-halake-api-key halake-api-key))
       (app req)
       (response/response {:status :error, :messsage "Authorization required"}))))
 
