@@ -43,4 +43,5 @@
          :repl-options {:init-ns halake-api.repl}
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
-         :env {:dev true}}})
+         :env {:dev true
+               :halake-api-key "test-halake-api-key"}}})
