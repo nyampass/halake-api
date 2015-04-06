@@ -26,42 +26,42 @@ TBD
 
 #### リクエスト
 - HTTPメソッド: GET
-- リソースURL: http://api.example.com/1.0/temperature
+- リソースURL: https://halake-api.herokuapp.com/1.0/temperature
 
 #### レスポンス
 
     // 成功時
-        {"status":"ok",
-             "temperature":<現在の温度(摂氏)を表す32bit以下の浮動小数点数>}
+    {"status":"ok",
+     "temperature":<現在の温度(摂氏)を表す32bit以下の浮動小数点数>}
 
     // 失敗時
-        {"status":"error",
-             "message":<エラーメッセージ文字列>}
+    {"status":"error",
+     "message":<エラーメッセージ文字列>}
 
 #### 例
-    $ curl http://api.example.com/1.0/temperature
-
+    $ curl https://halake-api.herokuapp.com/1.0/temperature
+    {"status":"ok","temperature":"20"}
 
 ### 湿度取得
 現在のHaLakeの湿度(%)を取得します。
 
 #### リクエスト
 - HTTPメソッド: GET
-- リソースURL: http://api.example.com/1.0/humidity
+- リソースURL: https://halake-api.herokuapp.com/1.0/humidity
 
 #### レスポンス
 
     // 成功時
-        {"status":"ok",
-             "humidity":<現在の湿度(%)を表す32bit以下の浮動小数点数>}
+    {"status":"ok",
+     "humidity":<現在の湿度(%)を表す32bit以下の浮動小数点数>}
 
     // 失敗時
-        {"status":"error",
-             "message":<エラーメッセージ文字列>}
+    {"status":"error",
+     "message":<エラーメッセージ文字列>}
 
 #### 例
-    $ curl http://api.example.com/1.0/humidity
-
+    $ curl https://halake-api.herokuapp.com/1.0/humidity
+    {"status":"ok","humidity":"50"}
 
 ### 混雑度取得
 現在のHaLakeの混雑度を取得します。
@@ -75,21 +75,21 @@ TBD
 
 #### リクエスト
 - HTTPメソッド: GET
-- リソースURL: http://api.example.com/1.0/congestion
+- リソースURL: https://halake-api.herokuapp.com/1.0/congestion
 
 #### レスポンス
 
     // 成功時
-        {"status":"ok",
-             "congestion":<混雑度>}
+    {"status":"ok",
+     "congestion":<混雑度>}
 
     // 失敗時
-        {"status":"error",
-             "message":<エラーメッセージ文字列>}
+    {"status":"error",
+     "message":<エラーメッセージ文字列>}
 
 #### 例
-    $ curl http://api.example.com/1.0/congestion
-
+    $ curl https://halake-api.herokuapp.com/1.0/congestion
+    {"status":"ok","congestion":"50"}
 
 ## ライセンス
 
