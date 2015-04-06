@@ -1,6 +1,6 @@
 (ns halake-api.handler
   (:require [compojure.core :refer [defroutes routes]]
-            [halake-api.routes.home :refer [home-routes]]
+            [halake-api.routes.api :refer [api-routes]]
             [halake-api.middleware
              :refer [development-middleware production-middleware]]
             [halake-api.session :as session]
@@ -49,7 +49,7 @@
 
 (def app
   (-> (routes
-        home-routes
+        api-routes
         base-routes)
       development-middleware
       production-middleware))
