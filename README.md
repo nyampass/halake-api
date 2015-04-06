@@ -94,3 +94,5 @@ TBD
 ## ライセンス
 
 Copyright © 2015 Nyampass Co. Ltd.
+
+Distributed under the Eclipse Public License either version 1.0.
