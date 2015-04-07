@@ -1,7 +1,8 @@
 (ns halake-api.db.status
   (:require [monger
              [collection :as mc]
-             [query :as mq]]
+             [query :as mq]
+             [operators :as mo]]
             [halake-api.db.core :refer [db]])
   (:import java.util.Date))
 
@@ -12,9 +13,9 @@
                    (assoc :updated-at (Date.)))]
     (mc/insert-and-return db STATUS status)))
 
-(defn retrieve-latest-status []
+(defn retrieve-latest-status [key]
   (-> (mq/with-collection db STATUS
-        (mq/find {})
+        (mq/find {key {mo/$exists true}})
         (mq/sort {:updated-at -1})
         (mq/limit 1))
       first))

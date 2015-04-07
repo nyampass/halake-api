@@ -12,8 +12,10 @@
 ;; Unauthorized routes
 ;;
 (defn retrieve-latest [key]
-  (if-let [status (status/retrieve-latest-status)]
-    (response/response {:status :ok, key (get status key)})))
+  (if-let [status (-> (status/retrieve-latest-status key)
+                      (select-keys [key :updated-at])
+                      (assoc :status :ok))]
+    (response/response status)))
 
 (defroutes unauthorized-routes
   (GET "/temperature" []
@@ -26,11 +28,22 @@
 ;;
 ;; Authorized routes
 ;;
+(defn safe-parse [s]
+  (try
+    (Float/parseFloat s)
+    (catch NumberFormatException _
+      nil)))
+
+(defn assoc-some [m k v]
+  (cond-> m v (assoc k v)))
+
 (defn update-status [temperature humidity congestion]
   (try
-    (status/update-status {:temperature temperature
-                           :humidity humidity
-                           :congestion congestion})
+    (-> {}
+        (assoc-some :temperature (some-> temperature safe-parse))
+        (assoc-some :humidity (some-> humidity safe-parse))
+        (assoc-some :congestion (some-> congestion safe-parse))
+        status/update-status)
     (response/response {:status :ok})
     (catch Exception e
       (timbre/error e)
