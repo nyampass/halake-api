@@ -4,9 +4,17 @@
             [ring.util.response :as response]
             [taoensso.timbre :as timbre]
             [ring.middleware.format-response :refer [wrap-json-response]]
+            [clj-time
+             [core :as t]
+             [coerce :as coerce]]
             [halake-api.db.status :as status]))
 
 (def halake-api-key (env :halake-api-key))
+
+(defn to-date-str [date]
+  (-> (coerce/from-date date)
+      (t/to-time-zone (t/time-zone-for-id "Asia/Tokyo"))
+      str))
 
 ;;
 ;; Unauthorized routes
@@ -14,6 +22,7 @@
 (defn retrieve-latest [key]
   (if-let [status (-> (status/retrieve-latest-status key)
                       (select-keys [key :updated-at])
+                      (update-in [:updated-at] to-date-str)
                       (assoc :status :ok))]
     (response/response status)))
 
